@@ -14,7 +14,6 @@
 //   console.log(`Server up on port ${PORT}`);
 // });
 
-
 require('dotenv').config();
 
 const axios = require('axios');
@@ -33,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('<h2>TEST The Slash Command and Dialog app is running</h2> <p>Follow the' +
+  res.send('<h2>The Slash Command and Dialog app is running</h2> <p>Follow the' +
   ' instructions in the README to configure the Slack App and your environment variables.</p>');
 });
 
@@ -123,9 +122,6 @@ app.post('/interactive-component', (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-
-
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
 });
