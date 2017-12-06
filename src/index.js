@@ -53,7 +53,7 @@ app.post('/commands', (req, res) => {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id,
       dialog: JSON.stringify({
-        title: 'hello',
+        title: 'https://airtable.com/tblWIvD0du6JQqdlx/viwOTYwUI4rsn7E0e',
         callback_id: 'submit-ticket',
         submit_label: 'Submit',
         elements: [
