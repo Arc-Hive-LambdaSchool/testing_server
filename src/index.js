@@ -53,7 +53,7 @@ app.post('/commands', (req, res) => {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id,
       dialog: JSON.stringify({
-        title: 'Sumbit a helpdesk ticket',
+        title: 'hello',
         callback_id: 'submit-ticket',
         submit_label: 'Submit',
         elements: [
