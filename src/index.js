@@ -67,7 +67,7 @@ app.post('/commands', (req, res) => {
           {
             label: 'Tags',
             type: 'select',
-            name: 'description',
+            name: 'tags',
             optional: true,
             options: [
               { label: 'JS', value: 'JS' },
