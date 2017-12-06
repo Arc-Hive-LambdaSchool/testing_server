@@ -31,7 +31,7 @@ const sendConfirmation = (search) => {
           },
           {
             title: 'Brownbag',
-            value: search.brownbag || 'None provided',
+            value: search.brownbag || 'No',
           }
         ],
       },

@@ -96,7 +96,7 @@ app.post('/commands', (req, res) => {
             type: 'select',
             name: 'brownbag',
             options: [
-              { label: 'Yes', value: 'Yes' },
+              { label: 'Yes', value: 'true' },
             ]
           }
         ],
