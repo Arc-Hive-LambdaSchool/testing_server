@@ -19,10 +19,10 @@ const sendConfirmation = (ticket) => {
         title_link: 'http://example.com',
         text: ticket.text,
         fields: [
-          {
-            title: 'Title',
-            // value: ticket.title,
-          },
+          // {
+          //   title: 'Title',
+          //   // value: ticket.title,
+          // },
           {
             title: 'Tags',
             value: ticket.tags || 'None provided',
