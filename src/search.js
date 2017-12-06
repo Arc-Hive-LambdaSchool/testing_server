@@ -12,7 +12,7 @@ const sendConfirmation = (search) => {
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: search.userId,
     text: 'View links below',
-    attachments: search,
+    attachments: JSON.stringify (search),
     // attachments: JSON.stringify([
     //   {
     //     title: `Ticket created for ${search.userEmail}`,
@@ -63,7 +63,6 @@ const create = (userId, submission) => {
     search.tags = submission.tags;
     search.cohort = submission.cohort;
     sendConfirmation(search);
-    console.log(search);
     return search;
   }).catch((err) => { console.error(err); });
 };
