@@ -11,7 +11,7 @@ const sendConfirmation = (ticket) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: ticket.userId,
-    text: 'Helpdesk ticket created!',
+    text: 'Lambda School Videos',
     attachments: JSON.stringify([
       {
         title: `Ticket created for ${ticket.userEmail}`,
@@ -19,17 +19,17 @@ const sendConfirmation = (ticket) => {
         title_link: 'http://example.com',
         text: ticket.text,
         fields: [
-          {
-            title: 'Title',
-            value: ticket.title,
-          },
+          // {
+          //   title: 'Title',
+          //   value: ticket.title,
+          // },
           {
             title: 'Tags',
-            value: ticket.description || 'None provided',
+            value: ticket.tags || 'None provided',
           },
           {
             title: 'Cohort',
-            value: ticket.cohort,
+            value: ticket.cohort || 'None provided',
             short: true,
           },
         ],
@@ -58,8 +58,8 @@ const create = (userId, submission) => {
   fetchUserEmail.then((result) => {
     ticket.userId = userId;
     ticket.userEmail = result;
-    ticket.title = submission.title;
-    ticket.description = submission.description;
+    // ticket.title = submission.title;
+    ticket.tags = submission.tags;
     ticket.cohort = submission.cohort;
     sendConfirmation(ticket);
 

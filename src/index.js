@@ -53,17 +53,17 @@ app.post('/commands', (req, res) => {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id,
       dialog: JSON.stringify({
-        title: 'Submit a helpdesk ticket',
+        title: 'https://airtable.com/tblWIvD0du6JQqdlx/viwOTYwUI4rsn7E0e',
         callback_id: 'submit-ticket',
         submit_label: 'Submit',
         elements: [
-          {
-            label: 'Title',
-            type: 'text',
-            name: 'title',
-            value: 'https://pacific-waters-60975.herokuapp.com/',
-            hint: '30 second summary of the problem',
-          },
+          // {
+          //   label: 'Title',
+          //   type: 'text',
+          //   name: 'title',
+          //   value: 'https://pacific-waters-60975.herokuapp.com/',
+          //   hint: '30 second summary of the problem',
+          // },
           {
             label: 'Tags',
             type: 'select',
