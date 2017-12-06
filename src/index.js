@@ -83,7 +83,6 @@ app.post('/commands', (req, res) => {
             optional: true,
             type: 'select',
             name: 'cohort',
-            hint: 'https://pacific-waters-60975.herokuapp.com/',
             options: [
               { label: 'CS1', value: 'CS1' },
               { label: 'CS2', value: 'CS2' },
@@ -91,6 +90,15 @@ app.post('/commands', (req, res) => {
               { label: 'CS4', value: 'CS4' },
             ],
           },
+          {
+            label: 'Brownbag?',
+            optional: true,
+            type: 'select',
+            name: 'brownbag',
+            options: [
+              { label: 'Yes', value: 'Yes' },
+            ]
+          }
         ],
       }),
     };

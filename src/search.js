@@ -20,10 +20,6 @@ const sendConfirmation = (search) => {
         title_link: 'http://example.com',
         text: search.text,
         fields: [
-          // {
-          //   title: 'Title',
-          //   // value: search.title,
-          // },
           {
             title: 'Tags',
             value: search.tags || 'None provided',
@@ -33,6 +29,10 @@ const sendConfirmation = (search) => {
             value: search.cohort || 'None provided',
             short: true,
           },
+          {
+            title: 'Brownbag',
+            value: search.brownbag || 'None provided',
+          }
         ],
       },
     ]),
@@ -62,6 +62,7 @@ const create = (userId, submission) => {
     // search.title = submission.title;
     search.tags = submission.tags;
     search.cohort = submission.cohort;
+    search.brownbag = submission.brownbag;
     sendConfirmation(search);
     return search;
   }).catch((err) => { console.error(err); });
