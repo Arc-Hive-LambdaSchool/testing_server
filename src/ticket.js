@@ -24,7 +24,7 @@ const sendConfirmation = (ticket) => {
             value: ticket.title,
           },
           {
-            title: 'test label',
+            title: 'Tags',
             value: ticket.description || 'None provided',
           },
           {

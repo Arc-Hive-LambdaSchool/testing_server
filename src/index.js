@@ -65,12 +65,17 @@ app.post('/commands', (req, res) => {
             hint: '30 second summary of the problem',
           },
           {
-            label: 'test label',
+            label: 'Tags',
             type: 'select',
             name: 'description',
             optional: true,
             options: [
-              { label: 'test', value: 'test' },
+              { label: 'JS', value: 'JS' },
+              { label: 'React', value: 'React' },
+              { label: 'Redux', value: 'Redux' },
+              { label: 'Auth', value: 'Auth' },
+              { label: 'C', value: 'C' },
+              { label: 'Testing', value: 'Testing' },
             ],
           },
           {
