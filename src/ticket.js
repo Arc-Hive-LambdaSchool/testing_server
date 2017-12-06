@@ -28,13 +28,8 @@ const sendConfirmation = (ticket) => {
             value: ticket.description || 'None provided',
           },
           {
-            title: 'Status',
-            value: 'Open',
-            short: true,
-          },
-          {
             title: 'Cohort',
-            value: ticket.urgency,
+            value: ticket.cohort,
             short: true,
           },
         ],
@@ -65,7 +60,7 @@ const create = (userId, submission) => {
     ticket.userEmail = result;
     ticket.title = submission.title;
     ticket.description = submission.description;
-    ticket.urgency = submission.urgency;
+    ticket.cohort = submission.cohort;
     sendConfirmation(ticket);
 
     return ticket;

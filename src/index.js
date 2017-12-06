@@ -81,7 +81,7 @@ app.post('/commands', (req, res) => {
           {
             label: 'Cohort',
             type: 'select',
-            name: 'urgency',
+            name: 'cohort',
             options: [
               { label: 'CS1', value: 'CS1' },
               { label: 'CS2', value: 'CS2' },
