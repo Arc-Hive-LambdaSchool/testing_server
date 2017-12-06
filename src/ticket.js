@@ -19,10 +19,10 @@ const sendConfirmation = (ticket) => {
         title_link: 'http://example.com',
         text: ticket.text,
         fields: [
-          // {
-          //   title: 'Title',
-          //   value: ticket.title,
-          // },
+          {
+            title: 'Title',
+            value: ticket.title,
+          },
           {
             title: 'Tags',
             value: ticket.tags || 'None provided',
@@ -58,7 +58,7 @@ const create = (userId, submission) => {
   fetchUserEmail.then((result) => {
     ticket.userId = userId;
     ticket.userEmail = result;
-    // ticket.title = submission.title;
+    ticket.title = submission.title;
     ticket.tags = submission.tags;
     ticket.cohort = submission.cohort;
     sendConfirmation(ticket);
