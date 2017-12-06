@@ -1,5 +1,5 @@
 const axios = require('axios');
-const debug = require('debug')('slash-command-template:ticket');
+const debug = require('debug')('slash-command-template:search');
 const qs = require('querystring');
 const users = require('./users');
 
@@ -7,29 +7,29 @@ const users = require('./users');
  *  Send ticket creation confirmation via
  *  chat.postMessage to the user who created it
  */
-const sendConfirmation = (ticket) => {
+const sendConfirmation = (search) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
-    channel: ticket.userId,
+    channel: search.userId,
     text: 'View links below',
     attachments: JSON.stringify([
       {
-        title: `Ticket created for ${ticket.userEmail}`,
+        title: `Ticket created for ${search.userEmail}`,
         // Get this from the 3rd party helpdesk system
         title_link: 'http://example.com',
-        text: ticket.text,
+        text: search.text,
         fields: [
           // {
           //   title: 'Title',
-          //   // value: ticket.title,
+          //   // value: search.title,
           // },
           {
             title: 'Tags',
-            value: ticket.tags || 'None provided',
+            value: search.tags || 'None provided',
           },
           {
             title: 'Cohort',
-            value: ticket.cohort || 'None provided',
+            value: search.cohort || 'None provided',
             short: true,
           },
         ],
@@ -43,10 +43,10 @@ const sendConfirmation = (ticket) => {
   });
 };
 
-// Create helpdesk ticket. Call users.find to get the user's email address
+// Create helpdesk search. Call users.find to get the user's email address
 // from their user ID
 const create = (userId, submission) => {
-  const ticket = {};
+  const search = {};
 
   const fetchUserEmail = new Promise((resolve, reject) => {
     users.find(userId).then((result) => {
@@ -56,14 +56,14 @@ const create = (userId, submission) => {
   });
 
   fetchUserEmail.then((result) => {
-    ticket.userId = userId;
-    ticket.userEmail = result;
-    // ticket.title = submission.title;
-    ticket.tags = submission.tags;
-    ticket.cohort = submission.cohort;
-    sendConfirmation(ticket);
+    search.userId = userId;
+    search.userEmail = result;
+    // search.title = submission.title;
+    search.tags = submission.tags;
+    search.cohort = submission.cohort;
+    sendConfirmation(search);
 
-    return ticket;
+    return search;
   }).catch((err) => { console.error(err); });
 };
 
