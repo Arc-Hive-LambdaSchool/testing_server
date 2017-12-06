@@ -67,7 +67,7 @@ app.post('/commands', (req, res) => {
           {
             label: 'Tags',
             type: 'select',
-            name: 'description',
+            name: 'tags',
             optional: true,
             options: [
               { label: 'JS', value: 'JS' },
@@ -80,6 +80,7 @@ app.post('/commands', (req, res) => {
           },
           {
             label: 'Cohort',
+            optional: true,
             type: 'select',
             name: 'cohort',
             options: [
