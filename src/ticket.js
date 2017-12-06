@@ -24,7 +24,7 @@ const sendConfirmation = (ticket) => {
             value: ticket.title,
           },
           {
-            title: 'Description',
+            title: 'test label',
             value: ticket.description || 'None provided',
           },
           {
@@ -33,7 +33,7 @@ const sendConfirmation = (ticket) => {
             short: true,
           },
           {
-            title: 'Urgency',
+            title: 'Cohort',
             value: ticket.urgency,
             short: true,
           },
