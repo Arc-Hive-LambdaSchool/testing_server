@@ -21,7 +21,7 @@ const sendConfirmation = (ticket) => {
         fields: [
           {
             title: 'Title',
-            value: ticket.title,
+            // value: ticket.title,
           },
           {
             title: 'Tags',
@@ -58,7 +58,7 @@ const create = (userId, submission) => {
   fetchUserEmail.then((result) => {
     ticket.userId = userId;
     ticket.userEmail = result;
-    ticket.title = submission.title;
+    // ticket.title = submission.title;
     ticket.tags = submission.tags;
     ticket.cohort = submission.cohort;
     sendConfirmation(ticket);
