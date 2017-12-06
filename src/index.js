@@ -20,7 +20,7 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const qs = require('querystring');
-const ticket = require('./ticket');
+const search = require('./search');
 const debug = require('debug')('slash-command-template:index');
 
 const app = express();
@@ -54,7 +54,7 @@ app.post('/commands', (req, res) => {
       trigger_id,
       dialog: JSON.stringify({
         title: 'LS Videos',
-        callback_id: 'submit-ticket',
+        callback_id: 'submit-search',
         submit_label: 'Submit',
         elements: [
           // {
@@ -126,7 +126,7 @@ app.post('/interactive-component', (req, res) => {
     res.send('');
 
     // create Helpdesk ticket
-    ticket.create(body.user.id, body.submission);
+    search.create(body.user.id, body.submission);
   } else {
     debug('Token mismatch');
     res.sendStatus(500);
