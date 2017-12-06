@@ -80,7 +80,7 @@ app.post('/commands', (req, res) => {
           },
           {
             label: 'Cohort',
-            optional: true,
+            // optional: true,
             type: 'select',
             name: 'cohort',
             options: [

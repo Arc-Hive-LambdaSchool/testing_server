@@ -29,7 +29,7 @@ const sendConfirmation = (ticket) => {
           },
           {
             title: 'Cohort',
-            value: ticket.cohort || 'None provided',
+            value: ticket.cohort,
             short: true,
           },
         ],
