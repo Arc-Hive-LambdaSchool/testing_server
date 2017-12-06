@@ -83,6 +83,7 @@ app.post('/commands', (req, res) => {
             optional: true,
             type: 'select',
             name: 'cohort',
+            hint: 'hint here',
             options: [
               { label: 'CS1', value: 'CS1' },
               { label: 'CS2', value: 'CS2' },
