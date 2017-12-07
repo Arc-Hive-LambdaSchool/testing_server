@@ -135,7 +135,6 @@ app.post('/arcCommands', (req, res) => {
             label: 'Tags',
             type: 'select',
             name: 'tags',
-            optional: true,
             options: [
               { label: 'JS', value: 'JS' },
               { label: 'React', value: 'React' },
@@ -147,7 +146,6 @@ app.post('/arcCommands', (req, res) => {
           },
           {
             label: 'Cohort',
-            optional: true,
             type: 'select',
             name: 'cohort',
             options: [
