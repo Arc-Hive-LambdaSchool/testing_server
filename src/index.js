@@ -105,7 +105,7 @@ app.post('/commands', (req, res) => {
 app.post('/arcCommands', (req, res) => {
   // extract the verification token, slash command text,
   // and trigger ID from payload
-  const { token, text, trigger_id } = req.body;
+  const { token, arcLink, trigger_id } = req.body;
 
   // check that the verification token matches expected value
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
