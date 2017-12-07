@@ -119,13 +119,18 @@ app.post('/arcCommands', (req, res) => {
         callback_id: 'submit-search',
         submit_label: 'Submit',
         elements: [
-          // {
-          //   label: 'Title',
-          //   // type: 'text',
-          //   // name: 'title',
-          //   value: 'https://pacific-waters-60975.herokuapp.com/',
-          //   // hint: '30 second summary of the problem',
-          // },
+          {
+            label: 'Video Link',
+            type: 'text',
+            name: 'arcLink',
+            value: 'enter link here',
+          },
+          {
+            label: 'Video title',
+            type: 'text',
+            name: 'arcTitle',
+            value: 'enter title here',
+          },
           {
             label: 'Tags',
             type: 'select',
