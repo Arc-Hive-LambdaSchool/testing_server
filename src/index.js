@@ -122,7 +122,7 @@ app.post('/arcCommands', (req, res) => {
           {
             label: 'Enter video link here',
             type: 'text',
-            name: 'arcLink',
+            name: arcLink,
             // value: 'enter link here',
           },
           {
