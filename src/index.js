@@ -4,7 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const qs = require('querystring');
-const search = require('./search');
+const slackSearch = require('./search');
 const debug = require('debug')('slash-command-template:index');
 
 const app = express();
@@ -118,7 +118,7 @@ app.post('/interactive-component', (req, res) => {
     res.send('');
 
     // create Helpdesk ticket
-    search.create(body.user.id, body.submission);
+    slackSearch.create(body.user.id, body.submission);
   } else {
     debug('Token mismatch');
     res.sendStatus(500);
