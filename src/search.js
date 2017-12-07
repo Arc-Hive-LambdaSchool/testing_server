@@ -61,7 +61,7 @@ const arcConfirmation = (slackSearch) => {
         fields: [
           {
             title: 'Link',
-            value: 'slackSearch.arcLink',
+            value: slackSearch.arcLink,
           },
           {
             title: 'Title',
