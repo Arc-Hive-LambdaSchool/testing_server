@@ -98,10 +98,11 @@ const create = (userId, submission) => {
   fetchUserEmail.then((result) => {
     slackSearch.userId = userId;
     slackSearch.userEmail = result;
-    // slackSearch.title = submission.title;
     slackSearch.tags = submission.tags;
     slackSearch.cohort = submission.cohort;
     slackSearch.brownbag = submission.brownbag;
+    slackSearch.arcLink = submission.arcLink;
+    slackSearch.arcTitle = submission.arcTitle;
     arcConfirmation(slackSearch);
     return slackSearch;
   }).catch((err) => { console.error(err); });
