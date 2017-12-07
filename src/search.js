@@ -13,7 +13,7 @@ const sendConfirmation = (slackSearch) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: slackSearch.userId,
-    text: 'View links below',
+    text: 'hive command test',
     attachments: JSON.stringify([
       {
         title: `Ticket created for ${slackSearch.userEmail}`,
@@ -50,7 +50,7 @@ const arcConfirmation = (slackSearch) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: slackSearch.userId,
-    text: 'View links below',
+    text: 'test arc command',
     attachments: JSON.stringify([
       {
         title: `Ticket created for ${slackSearch.userEmail}`,
@@ -103,7 +103,11 @@ const create = (userId, submission) => {
     slackSearch.brownbag = submission.brownbag;
     slackSearch.arcLink = submission.arcLink;
     slackSearch.arcTitle = submission.arcTitle;
-    arcConfirmation(slackSearch);
+    if (slackSearch.arcLink) {
+      arcConfirmation(slackSearch);
+  } else {
+      sendConfirmation(slackSearch);
+  }
     return slackSearch;
   }).catch((err) => { console.error(err); });
 };

@@ -168,7 +168,6 @@ app.post('/arcCommands', (req, res) => {
       }),
     };
 
-    // open the dialog by calling dialogs.open method and sending the payload
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
         debug('dialog.open: %o', result.data);
@@ -183,10 +182,7 @@ app.post('/arcCommands', (req, res) => {
   }
 });
 
-/*
- * Endpoint to receive the dialog submission. Checks the verification token
- * and creates a Helpdesk ticket
- */
+
 app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
