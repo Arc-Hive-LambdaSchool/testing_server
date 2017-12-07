@@ -120,16 +120,16 @@ app.post('/arcCommands', (req, res) => {
         submit_label: 'Submit',
         elements: [
           {
-            label: 'Video Link',
+            label: 'Enter video link here',
             type: 'text',
             name: 'arcLink',
-            value: 'enter link here',
+            // value: 'enter link here',
           },
           {
-            label: 'Video title',
+            label: 'Enter video title',
             type: 'text',
             name: 'arcTitle',
-            value: 'enter title here',
+            // value: 'enter title here',
           },
           {
             label: 'Tags',
