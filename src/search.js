@@ -16,9 +16,9 @@ const sendConfirmation = (slackSearch) => {
     text: 'hive command test',
     attachments: JSON.stringify([
       {
-        title: `Ticket created for ${slackSearch.userEmail}`,
+        title: `Link to airtable`,
         // Get this from the 3rd party helpdesk system
-        title_link: 'http://example.com',
+        title_link: 'https://airtable.com/tblWIvD0du6JQqdlx/viwOTYwUI4rsn7E0e',
         text: slackSearch.text,
         fields: [
           {
@@ -59,12 +59,20 @@ const arcConfirmation = (slackSearch) => {
         text: slackSearch.text,
         fields: [
           {
+            title: 'Link',
+            value: slackSearch.arcLink,
+          },
+          {
+            title: 'Title',
+            value: slackSearch.arcTitle,
+          },
+          {
             title: 'Tags',
-            value: slackSearch.tags || 'None provided',
+            value: slackSearch.tags,
           },
           {
             title: 'Cohort',
-            value: slackSearch.cohort || 'None provided',
+            value: slackSearch.cohort,
             short: true,
           },
           {
