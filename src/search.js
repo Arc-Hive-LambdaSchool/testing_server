@@ -16,7 +16,7 @@ const sendConfirmation = (slackSearch) => {
     text: 'hive command test',
     attachments: JSON.stringify([
       {
-        title: `Link to airtable`,
+        title: `Link to airtable!`,
         // Get this from the 3rd party helpdesk system
         title_link: 'https://airtable.com/tblWIvD0du6JQqdlx/viwOTYwUI4rsn7E0e',
         text: slackSearch.text,
