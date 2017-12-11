@@ -150,7 +150,7 @@ app.post('/arcCommands', (req, res) => {
             type: 'select',
             name: 'cohort',
             options: [
-              { label: 'CS1', value: '@channel CS1' },
+              { label: '@channel CS1', value: 'CS1' },
               { label: 'CS2', value: 'CS2' },
               { label: 'CS3', value: 'CS3' },
               { label: 'CS4', value: 'CS4' },
