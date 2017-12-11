@@ -47,12 +47,11 @@ const sendConfirmation = (slackSearch) => {
 
 const arcConfirmation = (slackSearch) => {
   console.log(slackSearch);
-  axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+  axios.post('https://slack.com/api/chat.postMessage', 'https://slack.com/api/groups.list', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     response_type: "in_channel",
-    channel: `#${slackSearch.cohort} + @channel`,
-    // text: '@channel',
-    text: '#general',
+    channel: `#${slackSearch.cohort}`,
+    text: '@tyge',
     attachments: JSON.stringify([
       {
         title: `Ticket created for ${slackSearch.userEmail}`,
