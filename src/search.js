@@ -22,7 +22,7 @@ const sendConfirmation = (slackSearch) => {
         text: slackSearch.text,
         fields: [
           {
-            title: 'Tags,@channel',
+            title: 'Tags',
             value: slackSearch.tags || 'None provided',
           },
           {
