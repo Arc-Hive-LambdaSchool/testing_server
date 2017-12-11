@@ -31,7 +31,7 @@ const sendConfirmation = (slackSearch) => {
             short: true,
           },
           {
-            title: 'Brownbag',
+            title: 'Brownbag!',
             value: slackSearch.brownbag || 'No',
           }
         ],
