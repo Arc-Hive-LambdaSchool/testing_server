@@ -73,7 +73,8 @@ const arcConfirmation = (slackSearch) => {
           },
           {
             title: 'Cohort',
-            value: slackSearch.cohort,
+            // value: slackSearch.cohort, `@channel ${slackSearch.cohort}`,
+            value: `@channel ${slackSearch.cohort}`,
             short: true,
           },
           {
