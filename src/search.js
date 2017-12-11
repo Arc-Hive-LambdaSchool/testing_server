@@ -47,7 +47,7 @@ const sendConfirmation = (slackSearch) => {
 
 const arcConfirmation = (slackSearch) => {
   console.log(slackSearch);
-  axios.post('https://slack.com/api/chat.postMessage', 'https://slack.com/api/groups.list', qs.stringify({
+  axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     response_type: "in_channel",
     channel: `#${slackSearch.cohort}`,
