@@ -120,7 +120,7 @@ app.post('/arcCommands', (req, res) => {
         submit_label: 'Submit',
         elements: [
           {
-            label: 'Enter video link here - TYGE TEST',
+            label: 'Enter video link here',
             type: 'text',
             name: 'arcLink',
             value: text,
