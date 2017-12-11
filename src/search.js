@@ -77,11 +77,6 @@ const arcConfirmation = (slackSearch) => {
             short: true,
           },
           {
-            title: 'Notification',
-            value: slackSearch.notification,
-            text: '@channel',
-          }
-          {
             title: 'Brownbag',
             value: slackSearch.brownbag || 'No',
           }
@@ -117,7 +112,6 @@ const create = (userId, submission) => {
     slackSearch.brownbag = submission.brownbag;
     slackSearch.arcLink = submission.arcLink;
     slackSearch.arcTitle = submission.arcTitle;
-    slackSearch.notification = submission.notification;
     if (slackSearch.arcLink) {
       arcConfirmation(slackSearch);
   } else {
