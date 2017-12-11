@@ -37,7 +37,7 @@ app.post('/commands', (req, res) => {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id,
       dialog: JSON.stringify({
-        title: 'LS Videos!',
+        title: 'LS Videos! - TYGE TEST',
         callback_id: 'submit-search',
         submit_label: 'Submit',
         elements: [
