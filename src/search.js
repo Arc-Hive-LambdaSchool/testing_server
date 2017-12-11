@@ -79,7 +79,7 @@ const arcConfirmation = (slackSearch) => {
           },
           {
             title: 'Brownbag',
-            value: slackSearch.brownbag || 'No' || `@channel`,
+            value: slackSearch.brownbag || 'No',
           }
         ],
       },
