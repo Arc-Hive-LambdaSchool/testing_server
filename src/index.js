@@ -116,6 +116,7 @@ app.post('/arcCommands', (req, res) => {
       trigger_id,
       dialog: JSON.stringify({
         title: 'LS Videos',
+        response_type: "in_channel",
         callback_id: 'submit-search',
         submit_label: 'Submit',
         elements: [
