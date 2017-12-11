@@ -118,13 +118,6 @@ app.post('/arcCommands', (req, res) => {
         title: 'LS Videos',
         callback_id: 'submit-search',
         submit_label: 'Submit',
-        {
-        "ok": true,
-        "groups": [
-            {
-            "id": "G024BE91L",
-                  ]
-            }
         elements: [
           {
             label: 'Enter video link here',
