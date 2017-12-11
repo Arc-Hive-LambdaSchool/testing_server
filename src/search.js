@@ -117,6 +117,7 @@ const create = (userId, submission) => {
     slackSearch.brownbag = submission.brownbag;
     slackSearch.arcLink = submission.arcLink;
     slackSearch.arcTitle = submission.arcTitle;
+    slackSearch.notification = submission.notification;
     if (slackSearch.arcLink) {
       arcConfirmation(slackSearch);
   } else {
