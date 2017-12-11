@@ -51,7 +51,8 @@ const arcConfirmation = (slackSearch) => {
     token: process.env.SLACK_ACCESS_TOKEN,
     response_type: "in_channel",
     channel: `#${slackSearch.cohort}`,
-    text: '<#channel>',
+    // text: '@channel',
+    text: '<#general>',
     attachments: JSON.stringify([
       {
         title: `Ticket created for ${slackSearch.userEmail}`,
