@@ -83,7 +83,7 @@ const arcConfirmation = (slackSearch) => {
           },
           {
             title : 'Notification',
-            value: '<@channel>',
+            value: '<#channel>',
           }
         ],
       },
