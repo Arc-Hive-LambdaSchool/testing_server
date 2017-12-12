@@ -50,8 +50,8 @@ const arcConfirmation = (slackSearch) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
     token: process.env.SLACK_ACCESS_TOKEN,
     response_type: "in_channel",
-    channel: `@channel`,`#${slackSearch.cohort}`,
-    text: ' ',
+    channel: `#${slackSearch.cohort}`,
+    text: `@channel`,
     attachments: JSON.stringify([
       {
         title: `Ticket created for user`,
