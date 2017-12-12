@@ -80,6 +80,10 @@ const arcConfirmation = (slackSearch) => {
           {
             title: 'Brownbag',
             value: slackSearch.brownbag || 'No',
+          },
+          {
+            title : 'Notification',
+            value: '@channel',
           }
         ],
       },
