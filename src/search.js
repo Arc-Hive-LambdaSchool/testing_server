@@ -11,6 +11,12 @@ const users = require('./users');
 const sendConfirmation = (slackSearch) => {
   console.log(slackSearch);
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+    if (field.length === 0) {
+    field.push({
+      title: `No records match your search for, Cohort: ${slackSearch.cohort}, Brownbag: ${slackSearch.brownbag}`,
+      value: 'Please make sure your input is correct and/or try a less specific search'
+    });
+  }
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: slackSearch.userId,
     text: 'hive command test',
