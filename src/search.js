@@ -54,7 +54,7 @@ const arcConfirmation = (slackSearch) => {
     text: ' ',
     attachments: JSON.stringify([
       {
-        title: `Ticket created for ${slackSearch.userEmail}`,
+        title: `Ticket created for user`,
         // Get this from the 3rd party helpdesk system
         title_link: 'http://example.com',
         text: slackSearch.text,
