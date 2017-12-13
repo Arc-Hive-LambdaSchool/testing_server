@@ -85,6 +85,49 @@ app.post('/commands', (req, res) => {
           }
         ],
       }),
+      dialog: JSON.stringify({
+        title: 'DIALOG BOX 2',
+        callback_id: 'submit-search',
+        submit_label: 'Submit',
+        elements: [
+
+          {
+            label: 'Tags',
+            type: 'select',
+            name: 'tags',
+            optional: true,
+            options: [
+              { label: 'JS', value: 'JS' },
+              { label: 'React', value: 'React' },
+              { label: 'Redux', value: 'Redux' },
+              { label: 'Auth', value: 'Auth' },
+              { label: 'C', value: 'C' },
+              { label: 'Testing', value: 'Testing' },
+            ],
+          },
+          {
+            label: 'Cohort',
+            optional: true,
+            type: 'select',
+            name: 'cohort',
+            options: [
+              { label: 'CS1', value: 'CS1' },
+              { label: 'CS2', value: 'CS2' },
+              { label: 'CS3', value: 'CS3' },
+              { label: 'CS4', value: 'CS4' },
+            ],
+          },
+          {
+            label: 'Brownbag?',
+            optional: true,
+            type: 'select',
+            name: 'brownbag',
+            options: [
+              { label: 'Yes', value: 'true' },
+            ]
+          }
+        ],
+      }),
     };
 
     // open the dialog by calling dialogs.open method and sending the payload
