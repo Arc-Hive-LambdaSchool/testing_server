@@ -11,7 +11,7 @@ const users = require('./users');
 const sendConfirmation = (slackSearch) => {
   console.log(slackSearch);
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
-    
+
     token: process.env.SLACK_ACCESS_TOKEN,
     channel: slackSearch.userId,
     text: 'hive command test',
@@ -37,6 +37,40 @@ const sendConfirmation = (slackSearch) => {
           }
         ],
       },
+
+      {
+           "fallback": "More buttons",
+           "callback_id": "button_test_2",
+           "color": "#3AA3E3",
+           "attachment_type": "default",
+           "actions": [
+               {
+                   "name": "btn",
+                   "text": "6",
+                   "type": "button",
+                   "value": "six"
+               },
+               {
+                   "name": "btn",
+                   "text": "7",
+                   "type": "button",
+                   "value": "seven"
+               },
+               {
+                   "name": "btn",
+                   "text": "8",
+                   "type": "button",
+                   "value": "eight"
+               },
+               {
+                   "name": "btn",
+                   "text": "9",
+                   "type": "button",
+                   "value": "nine"
+               }
+           ]
+       }
+
     ]),
   })).then((result) => {
     debug('sendConfirmation: %o', result.data);
