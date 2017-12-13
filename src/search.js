@@ -38,39 +38,6 @@ const sendConfirmation = (slackSearch) => {
         ],
       },
 
-      {
-           "fallback": "More buttons",
-           "callback_id": "button_test_2",
-           "color": "#3AA3E3",
-           "attachment_type": "default",
-           "actions": [
-               {
-                   "name": "btn",
-                   "text": "6",
-                   "type": "button",
-                   "value": "six"
-               },
-               {
-                   "name": "btn",
-                   "text": "7",
-                   "type": "button",
-                   "value": "seven"
-               },
-               {
-                   "name": "btn",
-                   "text": "8",
-                   "type": "button",
-                   "value": "eight"
-               },
-               {
-                   "name": "btn",
-                   "text": "9",
-                   "type": "button",
-                   "value": "nine"
-               }
-           ]
-       }
-
     ]),
   })).then((result) => {
     debug('sendConfirmation: %o', result.data);
@@ -87,37 +54,110 @@ const arcConfirmation = (slackSearch) => {
     response_type: "in_channel",
     channel: `#${slackSearch.cohort}`,
     // text: `<!channel>`,
-    attachments: JSON.stringify([
-      {
-        title: `Ticket created for user`,
-        // Get this from the 3rd party helpdesk system
-        title_link: 'http://example.com',
-        text: slackSearch.text,
-        fields: [
-          {
-            title: 'Link',
-            value: slackSearch.arcLink,
-          },
-          {
-            title: 'Title',
-            value: slackSearch.arcTitle,
-          },
-          {
-            title: 'Tags',
-            value: slackSearch.tags,
-          },
-          {
-            title: 'Cohort',
-            // value: slackSearch.cohort, `@channel ${slackSearch.cohort}`,
-            value: `${slackSearch.cohort}`,
-            short: true,
-          },
-          {
-            title: 'Brownbag',
-            value: slackSearch.brownbag || 'No',
-          },
-        ],
-      },
+    // attachments: JSON.stringify([
+    //   {
+    //     title: `Ticket created for user`,
+    //     // Get this from the 3rd party helpdesk system
+    //     title_link: 'http://example.com',
+    //     text: slackSearch.text,
+    //     fields: [
+    //       {
+    //         title: 'Link',
+    //         value: slackSearch.arcLink,
+    //       },
+    //       {
+    //         title: 'Title',
+    //         value: slackSearch.arcTitle,
+    //       },
+    //       {
+    //         title: 'Tags',
+    //         value: slackSearch.tags,
+    //       },
+    //       {
+    //         title: 'Cohort',
+    //         // value: slackSearch.cohort, `@channel ${slackSearch.cohort}`,
+    //         value: `${slackSearch.cohort}`,
+    //         short: true,
+    //       },
+    //       {
+    //         title: 'Brownbag',
+    //         value: slackSearch.brownbag || 'No',
+    //       },
+    //     ],
+    //   },
+    "attachments": [
+        {
+            "text": "Press a button",
+            "fallback": "Press a button",
+            "callback_id": "button_test",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "btn",
+                    "text": "1",
+                    "type": "button",
+                    "value": "one"
+                },
+                {
+                    "name": "btn",
+                    "text": "2",
+                    "type": "button",
+                    "value": "two"
+                },
+                {
+                    "name": "btn",
+                    "text": "3",
+                    "type": "button",
+                    "value": "three"
+                },
+                {
+                    "name": "btn",
+                    "text": "4",
+                    "type": "button",
+                    "value": "four"
+                },
+                {
+                    "name": "btn",
+                    "text": "5",
+                    "type": "button",
+                    "value": "five"
+                }
+            ]
+        },
+        {
+            "fallback": "More buttons",
+            "callback_id": "button_test_2",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "btn",
+                    "text": "6",
+                    "type": "button",
+                    "value": "six"
+                },
+                {
+                    "name": "btn",
+                    "text": "7",
+                    "type": "button",
+                    "value": "seven"
+                },
+                {
+                    "name": "btn",
+                    "text": "8",
+                    "type": "button",
+                    "value": "eight"
+                },
+                {
+                    "name": "btn",
+                    "text": "9",
+                    "type": "button",
+                    "value": "nine"
+                }
+            ]
+        }
+    ]
     ]),
   })).then((result) => {
     debug('arcConfirmation: %o', result.data);
