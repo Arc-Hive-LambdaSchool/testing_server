@@ -91,7 +91,7 @@ const arcConfirmation = (slackSearch) => {
 
 // TESTING MULTI BUTTONS HERE //
 
-    attachments: JSON.stringify([
+    // attachments: JSON.stringify([
    //   {
    //     title: `Ticket created for user`,
    //     // Get this from the 3rd party helpdesk system
