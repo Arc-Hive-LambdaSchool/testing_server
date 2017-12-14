@@ -205,11 +205,11 @@ app.post('/arcCommands', (req, res) => {
               name: 'arcInstructor',
               value: userName,
             },
-            // {
-            //   label: 'Enter keyword',
-            //   type: 'text',
-            //   name: 'keyword',
-            // },
+            {
+              label: 'Enter keyword',
+              type: 'text',
+              name: 'keyword',
+            },
             {
               label: 'Other Tags',
               type: 'textarea',
