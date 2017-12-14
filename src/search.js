@@ -6,7 +6,6 @@ const users = require('./users');
 const index = require('./index.js');
 // const bcrypt = require('bcrypt');
 // const salt = bcrypt.genSaltSync(10);
-
 // const hash = bcrypt.hashSync(process.env.KEYWORD, salt);
 
 const sendConfirmation = (slackSearch) => {
