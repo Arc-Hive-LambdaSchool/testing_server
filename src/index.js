@@ -66,6 +66,18 @@ app.post('/commands', (req, res) => {
               { label: 'CS2', value: 'CS2' },
               { label: 'CS3', value: 'CS3' },
               { label: 'CS4', value: 'CS4' },
+              { label: 'CS1', value: 'CS1' },
+              { label: 'CS2', value: 'CS2' },
+              { label: 'CS3', value: 'CS3' },
+              { label: 'CS4', value: 'CS4' },
+              { label: 'CS1', value: 'CS1' },
+              { label: 'CS2', value: 'CS2' },
+              { label: 'CS3', value: 'CS3' },
+              { label: 'CS4', value: 'CS4' },
+              { label: 'CS1', value: 'CS1' },
+              { label: 'CS2', value: 'CS2' },
+              { label: 'CS3', value: 'CS3' },
+              { label: 'CS4', value: 'CS4' },
             ],
           },
           {
@@ -108,7 +120,7 @@ app.post('/arcCommands', (req, res) => {
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     // create the dialog payload - includes the dialog structure, Slack API token,
     // and trigger ID
-    
+
     const dialog = {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id,
