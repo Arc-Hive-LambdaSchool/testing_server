@@ -10,9 +10,6 @@ const users = require('./users');
 
 const app = express();
 
-/*
- * Parse application/x-www-form-urlencoded && application/json
- */
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -21,10 +18,6 @@ app.get('/', (req, res) => {
   ' instructions in the README to configure the Slack App and your environment variables.</p>');
 });
 
-/*
- * Endpoint to receive /helpdesk slash command from Slack.
- * Checks verification token and opens a dialog to capture more info.
- */
 app.post('/commands', (req, res) => {
   // extract the verification token, slash command text,
   // and trigger ID from payload
@@ -104,76 +97,73 @@ app.post('/commands', (req, res) => {
 });
 
 
-// app.post('/button', (req, res) => {
-//   const { token, trigger_id } = req.body;
+app.post('/button', (req, res) => {
+  const { token, trigger_id } = req.body;
 
-//   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-//     const dialog = {
-//       token: process.env.SLACK_ACCESS_TOKEN,
-//       trigger_id,
-//       dialog: JSON.stringify({
-//         text: "Would you like to play a game?",
-//         attachments: [
-//             {
-//                 text: "Choose a game to play",
-//                 fallback: "You are unable to choose a game",
-//                 callback_id: "wopr_game",
-//                 color: "#3AA3E3",
-//                 attachment_type: "default",
-//                 actions: [
-//               {
-//                 name: "game",
-//                 text: "Chess",
-//                 type: "button",
-//                 value: "chess"
-//               },
-//               {
-//                 name: "game",
-//                 text: "Falken's Maze",
-//                 type: "button",
-//                 value: "maze"
-//               },
-//               {
-//                 name: "game",
-//                 text: "Thermonuclear War",
-//                 style: "danger",
-//                 type: "button",
-//                 value: "war",
-//                 confirm: {
-//                   title: "Are you sure?",
-//                   text: "Wouldn't you prefer a good game of chess?",
-//                   ok_text: "Yes",
-//                   dismiss_text: "No"
-//                 }
-//               }
-//             ]
-//           }
-//         ]
-//       }),
-//     };
+  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    const dialog = {
+      token: process.env.SLACK_ACCESS_TOKEN,
+      trigger_id,
+      dialog: JSON.stringify({
+        text: "Would you like to play a game?",
+        attachments: [
+            {
+                text: "Choose a game to play",
+                fallback: "You are unable to choose a game",
+                callback_id: "wopr_game",
+                color: "#3AA3E3",
+                attachment_type: "default",
+                actions: [
+              {
+                name: "game",
+                text: "Chess",
+                type: "button",
+                value: "chess"
+              },
+              {
+                name: "game",
+                text: "Falken's Maze",
+                type: "button",
+                value: "maze"
+              },
+              {
+                name: "game",
+                text: "Thermonuclear War",
+                style: "danger",
+                type: "button",
+                value: "war",
+                confirm: {
+                  title: "Are you sure?",
+                  text: "Wouldn't you prefer a good game of chess?",
+                  ok_text: "Yes",
+                  dismiss_text: "No"
+                }
+              }
+            ]
+          }
+        ]
+      }),
+    };
 
-//     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
-//       .then((result) => {
-//         debug('dialog.open: %o', result.data);
-//         res.send('');
-//       }).catch((err) => {
-//         debug('dialog.open call failed: %o', err);
-//         res.sendStatus(500);
-//       });
-//   } else {
-//     debug('Verification token mismatch');
-//     res.sendStatus(500);
-//   }
-// });
-
-
+    axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
+      .then((result) => {
+        debug('dialog.open: %o', result.data);
+        res.send('');
+      }).catch((err) => {
+        debug('dialog.open call failed: %o', err);
+        res.sendStatus(500);
+      });
+  } else {
+    debug('Verification token mismatch');
+    res.sendStatus(500);
+  }
+});
 
 app.post('/arcCommands', (req, res) => {
   const { token, text, trigger_id, user_id } = req.body;
 
   const findUser = (userId) => {
-    let user_name;
-  
+ 
     const fetchUserName = new Promise((resolve, reject) => {
       users.find(userId).then((result) => {
         debug(`Find user: ${userId}`);
@@ -216,11 +206,11 @@ app.post('/arcCommands', (req, res) => {
               name: 'arcInstructor',
               value: userName,
             },
-            {
-              label: 'Enter keyword',
-              type: 'text',
-              name: 'keyword',
-            },
+            // {
+            //   label: 'Enter keyword',
+            //   type: 'text',
+            //   name: 'keyword',
+            // },
             {
               label: 'Other Tags',
               type: 'textarea',
@@ -228,41 +218,6 @@ app.post('/arcCommands', (req, res) => {
               optional: true,
               hint: '(separate with commas) e.g. CS1, CS2, JS, React, Redux, Brownbag, etc...'
             },
-            // {
-            //   label: 'Tags',
-            //   type: 'select',
-            //   name: 'tags',
-            //   optional: true,
-            //   options: [
-            //     { label: 'JS', value: 'JS' },
-            //     { label: 'React', value: 'React' },
-            //     { label: 'Redux', value: 'Redux' },
-            //     { label: 'Auth', value: 'Auth' },
-            //     { label: 'C', value: 'C' },
-            //     { label: 'Testing', value: 'Testing' },
-            //   ],
-            // },
-            // {
-            //   label: 'Cohort',
-            //   optional: true,
-            //   type: 'select',
-            //   name: 'cohort',
-            //   options: [
-            //     { label: 'CS1', value: 'CS1' },
-            //     { label: 'CS2', value: 'CS2' },
-            //     { label: 'CS3', value: 'CS3' },
-            //     { label: 'CS4', value: 'CS4' },
-            //   ],
-            // },
-            // {
-            //   label: 'Brownbag?',
-            //   optional: true,
-            //   type: 'select',
-            //   name: 'brownbag',
-            //   options: [
-            //     { label: 'Yes', value: 'true' },
-            //   ]
-            // }
           ],
         }),
       };
@@ -280,172 +235,7 @@ app.post('/arcCommands', (req, res) => {
       res.sendStatus(500);
     }
   };
-  // if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-  //   const dialog = {
-  //     token: process.env.SLACK_ACCESS_TOKEN,
-  //     trigger_id,
-  //     dialog: JSON.stringify({
-  //       title: 'LS Videos!',
-  //       callback_id: 'submit-search',
-  //       submit_label: 'Submit',
-  //       elements: [
-  //         {
-  //           label: 'Video Link',
-  //           type: 'text',
-  //           name: 'arcLink',
-  //           value: text,
-  //         },
-  //         {
-  //           label: 'Video Title',
-  //           type: 'text',
-  //           name: 'arcTitle',
-  //         },
-  //         {
-  //           label: 'Instructor',
-  //           type: 'text',
-  //           name: 'arcInstructor',
-  //           // value: userName,
-  //         },
-  //         // {
-  //         //   label: 'Tags',
-  //         //   type: 'select',
-  //         //   name: 'tags',
-  //         //   optional: true,
-  //         //   options: [
-  //         //     { label: 'JS', value: 'JS' },
-  //         //     { label: 'React', value: 'React' },
-  //         //     { label: 'Redux', value: 'Redux' },
-  //         //     { label: 'Auth', value: 'Auth' },
-  //         //     { label: 'C', value: 'C' },
-  //         //     { label: 'Testing', value: 'Testing' },
-  //         //   ],
-  //         // },
-  //         // {
-  //         //   label: 'Cohort',
-  //         //   optional: true,
-  //         //   type: 'select',
-  //         //   name: 'cohort',
-  //         //   options: [
-  //         //     { label: 'CS1', value: 'CS1' },
-  //         //     { label: 'CS2', value: 'CS2' },
-  //         //     { label: 'CS3', value: 'CS3' },
-  //         //     { label: 'CS4', value: 'CS4' },
-  //         //   ],
-  //         // },
-  //         // {
-  //         //   label: 'Brownbag?',
-  //         //   optional: true,
-  //         //   type: 'select',
-  //         //   name: 'brownbag',
-  //         //   options: [
-  //         //     { label: 'Yes', value: 'true' },
-  //         //   ]
-  //         // }
-  //       ],
-  //     }),
-  //   };
-
-  //   axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
-  //     .then((result) => {
-  //       debug('dialog.open: %o', result.data);
-  //       res.send('');
-  //     }).catch((err) => {
-  //       debug('dialog.open call failed: %o', err);
-  //       res.sendStatus(500);
-  //     });
-  // } else {
-  //   debug('Verification token mismatch');
-  //   res.sendStatus(500);
-  // }
 });
-
-// app.post('/arcCommands', (req, res) => {
-//   // extract the verification token, slash command text,
-//   // and trigger ID from payload
-//   const { token, text, trigger_id, user_id, user_name } = req.body;
-
-//   // check that the verification token matches expected value
-//   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-//     // create the dialog payload - includes the dialog structure, Slack API token,
-//     // and trigger ID
-//     const dialog = {
-//       token: process.env.SLACK_ACCESS_TOKEN,
-//       trigger_id,
-//       dialog: JSON.stringify({
-//         title: 'LS Videos',
-//         callback_id: 'submit-search',
-//         submit_label: 'Submit',
-//         elements: [
-//           {
-//             label: 'Enter video link here',
-//             type: 'text',
-//             name: 'arcLink',
-//             value: text,
-//             // value: 'enter link here',
-//           },
-//           {
-//             label: 'Enter video title',
-//             type: 'text',
-//             name: 'arcTitle',
-//             // value: 'enter title here',
-//           },
-//           {
-//             label: 'Instructor:',
-//             type: 'text',
-//             name: 'instructor',
-//             // value: ,
-//           },
-//           {
-//             label: 'Tags',
-//             type: 'select',
-//             name: 'tags',
-//             options: [
-//               { label: 'JS', value: 'JS' },
-//               { label: 'React', value: 'React' },
-//               { label: 'Redux', value: 'Redux' },
-//               { label: 'Auth', value: 'Auth' },
-//               { label: 'C', value: 'C' },
-//               { label: 'Testing', value: 'Testing' },
-//             ],
-//           },
-//           {
-//             label: 'Cohort',
-//             type: 'select',
-//             name: 'cohort',
-//             options: [
-//               { label: 'CS1', value: 'CS1' },
-//               { label: 'CS2', value: 'CS2' },
-//               { label: 'CS3', value: 'CS3' },
-//               { label: 'CS4', value: 'CS4' },
-//             ],
-//           },
-//           {
-//             label: 'Brownbag?',
-//             optional: true,
-//             type: 'select',
-//             name: 'brownbag',
-//             options: [
-//               { label: 'Yes', value: 'true' },
-//             ]
-//           }
-//         ],
-//       }),
-//     };
-
-//     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
-//       .then((result) => {
-//         debug('dialog.open: %o', result.data);
-//         res.send('');
-//       }).catch((err) => {
-//         debug('dialog.open call failed: %o', err);
-//         res.sendStatus(500);
-//       });
-//   } else {
-//     debug('Verification token mismatch');
-//     res.sendStatus(500);
-//   }
-// });
-
 
 app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
