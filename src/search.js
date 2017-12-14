@@ -66,6 +66,23 @@ const arcConfirmation = (slackSearch) => {
             value: slackSearch.arcLink,
           },
           {
+            //
+        {
+            "text": "Press a button",
+            "fallback": "Press a button",
+            "callback_id": "button_test",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "btn",
+                    "text": "1",
+                    "type": "button",
+                    "value": "one"
+                },
+
+                //
+          {
             title: 'Title',
             value: slackSearch.arcTitle,
           },
