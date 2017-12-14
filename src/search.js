@@ -4,7 +4,7 @@ const debug = require('debug')('slash-command-template:search');
 const qs = require('querystring');
 const users = require('./users');
 const index = require('./index.js');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const salt = bcrypt.genSaltSync(10);
 
 const hash = bcrypt.hashSync(process.env.KEYWORD, salt);
@@ -48,77 +48,77 @@ const sendConfirmation = (slackSearch) => {
   });
 };
 
-const arcConfirmation = (slackSearch) => {
-  if (bcrypt.compareSync(slackSearch.keyword, hash)) {
-    axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
-      token: process.env.SLACK_ACCESS_TOKEN,
-      // response_type: "in_channel",
-      channel: slackSearch.userId,
-      text: '@channel',
-      attachments: JSON.stringify([
-        {
-          title: 'arc test w/ keyword successful',
-          title_link: 'http://example.com',
-          text: slackSearch.text,
-          fields: [
-            {
-              title: 'Link',
-              value: slackSearch.arcLink,
-            },
-            {
-              title: 'Title',
-              value: slackSearch.arcTitle,
-            },
-            {
-              title: 'Other Tags',
-              value: slackSearch.allLabels,
-            },
-          ],
-        },
-      ]),
-    })).then((result) => {
-      debug('arcConfirmation: %o', result.data);
-    }).catch((err) => {
-      debug('arcConfirmation error: %o', err);
-      console.error(err);
-    });
-  } else {
-    axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
-      token: process.env.SLACK_ACCESS_TOKEN,
-      // response_type: "in_channel",
-      channel: slackSearch.userId,
-      text: 'CANNOT UPLOAD TO AIRTABLE!! Please enter correct keyword',
-      attachments: JSON.stringify([
-        {
-          title: 'Fields entered:',
-          fields: [
-            {
-              title: 'Link',
-              value: slackSearch.arcLink,
-            },
-            {
-              title: 'Title',
-              value: slackSearch.arcTitle,
-            },
-            {
-              title: 'Instructor',
-              value: slackSearch.arcInstructor,
-            },
-            {
-              title: 'Other Tags',
-              value: slackSearch.allLabels,
-            },
-          ],
-        },
-      ]),
-    })).then((result) => {
-      debug('arcConfirmation: %o', result.data);
-    }).catch((err) => {
-      debug('arcConfirmation error: %o', err);
-      console.error(err);
-    });
-  }
-};
+// const arcConfirmation = (slackSearch) => {
+//   if (bcrypt.compareSync(slackSearch.keyword, hash)) {
+//     axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+//       token: process.env.SLACK_ACCESS_TOKEN,
+//       // response_type: "in_channel",
+//       channel: slackSearch.userId,
+//       text: '@channel',
+//       attachments: JSON.stringify([
+//         {
+//           title: 'arc test w/ keyword successful',
+//           title_link: 'http://example.com',
+//           text: slackSearch.text,
+//           fields: [
+//             {
+//               title: 'Link',
+//               value: slackSearch.arcLink,
+//             },
+//             {
+//               title: 'Title',
+//               value: slackSearch.arcTitle,
+//             },
+//             {
+//               title: 'Other Tags',
+//               value: slackSearch.allLabels,
+//             },
+//           ],
+//         },
+//       ]),
+//     })).then((result) => {
+//       debug('arcConfirmation: %o', result.data);
+//     }).catch((err) => {
+//       debug('arcConfirmation error: %o', err);
+//       console.error(err);
+//     });
+//   } else {
+//     axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+//       token: process.env.SLACK_ACCESS_TOKEN,
+//       // response_type: "in_channel",
+//       channel: slackSearch.userId,
+//       text: 'CANNOT UPLOAD TO AIRTABLE!! Please enter correct keyword',
+//       attachments: JSON.stringify([
+//         {
+//           title: 'Fields entered:',
+//           fields: [
+//             {
+//               title: 'Link',
+//               value: slackSearch.arcLink,
+//             },
+//             {
+//               title: 'Title',
+//               value: slackSearch.arcTitle,
+//             },
+//             {
+//               title: 'Instructor',
+//               value: slackSearch.arcInstructor,
+//             },
+//             {
+//               title: 'Other Tags',
+//               value: slackSearch.allLabels,
+//             },
+//           ],
+//         },
+//       ]),
+//     })).then((result) => {
+//       debug('arcConfirmation: %o', result.data);
+//     }).catch((err) => {
+//       debug('arcConfirmation error: %o', err);
+//       console.error(err);
+//     });
+//   }
+// };
 
 const arcConfirmation2 = (slackSearch) => {
   if (process.env.USER_EMAILS.includes(slackSearch.userEmail)) 

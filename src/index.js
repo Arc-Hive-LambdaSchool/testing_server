@@ -96,7 +96,6 @@ app.post('/commands', (req, res) => {
   }
 });
 
-
 app.post('/button', (req, res) => {
   const { token, trigger_id } = req.body;
 
