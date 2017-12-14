@@ -225,62 +225,17 @@ app.post('/arcCommands', (req, res) => {
         ],
       }),
 
-      const dialog = {
-        token: process.env.SLACK_ACCESS_TOKEN,
-        trigger_id,
-        dialog: JSON.stringify({
-          title: 'YO TYGE',
-          callback_id: 'submit-search',
-          submit_label: 'Submit',
-          elements: [
-            {
-              label: 'Enter video link here',
-              type: 'text',
-              name: 'arcLink',
-              value: text,
-              // value: 'enter link here',
-            },
-            {
-              label: 'Enter video title',
-              type: 'text',
-              name: 'arcTitle',
-              // value: 'enter title here',
-            },
-            {
-              label: 'Tags',
-              type: 'select',
-              name: 'tags',
-              options: [
-                { label: 'JS', value: 'JS' },
-                { label: 'React', value: 'React' },
-                { label: 'Redux', value: 'Redux' },
-                { label: 'Auth', value: 'Auth' },
-                { label: 'C', value: 'C' },
-                { label: 'Testing', value: 'Testing' },
-              ],
-            },
-            {
-              label: 'Cohort',
-              type: 'select',
-              name: 'cohort',
-              options: [
-                { label: 'CS1', value: 'CS1' },
-                { label: 'CS2', value: 'CS2' },
-                { label: 'CS3', value: 'CS3' },
-                { label: 'CS4', value: 'CS4' },
-              ],
-            },
-            {
-              label: 'Brownbag?',
-              optional: true,
-              type: 'select',
-              name: 'brownbag',
-              options: [
-                { label: 'Yes', value: 'true' },
-              ]
-            }
-          ],
-        }),
+      {
+        label: 'Cohort',
+        type: 'select',
+        name: 'cohort',
+        options: [
+          { label: 'CS1', value: 'CS1' },
+          { label: 'CS2', value: 'CS2' },
+          { label: 'CS3', value: 'CS3' },
+          { label: 'CS4', value: 'CS4' },
+        ],
+      },
     };
 
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
