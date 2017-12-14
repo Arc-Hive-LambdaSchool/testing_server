@@ -5,9 +5,9 @@ const qs = require('querystring');
 const users = require('./users');
 const index = require('./index.js');
 // const bcrypt = require('bcrypt');
-const salt = bcrypt.genSaltSync(10);
+// const salt = bcrypt.genSaltSync(10);
 
-const hash = bcrypt.hashSync(process.env.KEYWORD, salt);
+// const hash = bcrypt.hashSync(process.env.KEYWORD, salt);
 
 const sendConfirmation = (slackSearch) => {
   axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
