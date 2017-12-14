@@ -172,6 +172,19 @@ app.post('/commands', (req, res) => {
           }
         ],
       }),
+
+      {
+        label: 'Cohort',
+        optional: true,
+        type: 'select',
+        name: 'cohort',
+        options: [
+          { label: 'CS1', value: 'CS1' },
+          { label: 'CS2', value: 'CS2' },
+          { label: 'CS3', value: 'CS3' },
+          { label: 'CS4', value: 'CS4' },
+        ],
+      },      
       dialog: JSON.stringify({
         title: 'DIALOG BOX 2',
         callback_id: 'submit-search',
