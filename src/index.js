@@ -198,13 +198,15 @@ app.post('/arcCommands', (req, res) => {
               label: 'Video Title',
               type: 'text',
               name: 'arcTitle',
+              value: ` by ${userName}`,
+              hint: 'enter title'
             },      
-            {
-              label: 'Instructor',
-              type: 'text',
-              name: 'arcInstructor',
-              value: userName,
-            },
+            // {
+            //   label: 'Instructor',
+            //   type: 'text',
+            //   name: 'arcInstructor',
+            //   value: userName,
+            // },
             {
               label: 'Enter keyword',
               type: 'text',
