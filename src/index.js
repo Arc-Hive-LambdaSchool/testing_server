@@ -162,12 +162,10 @@ app.post('/arcCommands', (req, res) => {
   const { token, text, trigger_id, user_id } = req.body;
 
   const findUser = (userId) => {
-    console.log(userId);
  
     const fetchUserName = new Promise((resolve, reject) => {
       users.find(userId).then((result) => {
         debug(`Find user: ${userId}`);
-        console.log(result.data);
         resolve(result.data.user.profile.real_name);
       }).catch((err) => { reject(err); });
     });
