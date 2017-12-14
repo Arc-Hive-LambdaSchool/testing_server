@@ -68,16 +68,7 @@ app.post('/commands', (req, res) => {
               { label: 'CS4', value: 'CS4' },
               { label: 'CS5', value: 'CS5' },
               { label: 'CS6', value: 'CS6' },
-              { label: 'CS3', value: 'CS3' },
-              { label: 'CS4', value: 'CS4' },
-              { label: 'CS1', value: 'CS1' },
-              { label: 'CS2', value: 'CS2' },
-              { label: 'CS3', value: 'CS3' },
-              { label: 'CS4', value: 'CS4' },
-              { label: 'CS1', value: 'CS1' },
-              { label: 'CS2', value: 'CS2' },
-              { label: 'CS3', value: 'CS3' },
-              { label: 'CS4', value: 'CS4' },
+
             ],
           },
           {
@@ -164,6 +155,9 @@ app.post('/arcCommands', (req, res) => {
               { label: 'CS2', value: 'CS2' },
               { label: 'CS3', value: 'CS3' },
               { label: 'CS4', value: 'CS4' },
+              { label: 'CS5', value: 'CS5' },
+              { label: 'CS6', value: 'CS6' },
+              { label: 'CS7', value: 'CS7' },
             ],
           },
           {
