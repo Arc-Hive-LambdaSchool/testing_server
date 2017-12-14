@@ -237,6 +237,91 @@ app.post('/arcCommands', (req, res) => {
   };
 });
 
+app.post('/timestamp', (req, res) => {
+  const { token, text, trigger_id, user_id } = req.body;
+
+  const findUser = (userId) => {
+ 
+    const fetchUserName = new Promise((resolve, reject) => {
+      users.find(userId).then((result) => {
+        debug(`Find user: ${userId}`);
+        resolve(result.data.user.profile.real_name);
+      }).catch((err) => { reject(err); });
+    });
+  
+    fetchUserName.then((result) => {
+      openDialog(result);
+      return;
+    }).catch((err) => { console.error(err); });
+  };
+
+  findUser(user_id);
+
+  const openDialog = (userName) => {
+    if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+      const dialog = {
+        token: process.env.SLACK_ACCESS_TOKEN,
+        trigger_id,
+        dialog: JSON.stringify({
+          title: 'add a timestamp',
+          callback_id: 'submit-search',
+          submit_label: 'Submit',
+          elements: [
+            {
+              label: 'Video Link',
+              type: 'text',
+              name: 'arcLink',
+              value: text,
+            },
+            {
+              label: 'Video Title',
+              type: 'text',
+              name: 'arcTitle',
+            },      
+            {
+              label: 'Instructor',
+              type: 'text',
+              name: 'arcInstructor',
+              value: userName,
+            },
+            {
+              label: 'Enter time',
+              type: 'text',
+              name: 'arcTime',
+              hint: 'e.g. 1h2m35s'
+            },
+            {
+              label: 'Tags',
+              type: 'select',
+              name: 'tags',
+              options: [
+                { label: 'JS', value: 'JS' },
+                { label: 'React', value: 'React' },
+                { label: 'Redux', value: 'Redux' },
+                { label: 'Auth', value: 'Auth' },
+                { label: 'C', value: 'C' },
+                { label: 'Testing', value: 'Testing' },
+              ],
+            },
+          ],
+        }),
+      };
+  
+      axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
+        .then((result) => {
+          debug('dialog.open: %o', result.data);
+          res.send('');
+        }).catch((err) => {
+          debug('dialog.open call failed: %o', err);
+          res.sendStatus(500);
+        });
+    } else {
+      debug('Verification token mismatch');
+      res.sendStatus(500);
+    }
+  };
+});
+
 app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
 

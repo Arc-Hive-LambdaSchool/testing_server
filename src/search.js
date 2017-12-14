@@ -57,7 +57,7 @@ const arcConfirmation = (slackSearch) => {
       text: '@channel',
       attachments: JSON.stringify([
         {
-          title: `Ticket created for ${slackSearch.userName}`,
+          title: 'arc test w/ keyword successful',
           title_link: 'http://example.com',
           text: slackSearch.text,
           fields: [
@@ -130,7 +130,7 @@ const arcConfirmation2 = (slackSearch) => {
       text: '@channel',
       attachments: JSON.stringify([
         {
-          title: `Ticket created for ${slackSearch.userName}`,
+          title: 'arc w/ email auth success',
           title_link: 'http://example.com',
           text: slackSearch.text,
           fields: [
@@ -193,6 +193,44 @@ const arcConfirmation2 = (slackSearch) => {
   }
 };
 
+const timestampConfirmation = (slackSearch) => {
+  const newLink = slackSearch.arcLink + '?t=' + slackSearch.arcTime;
+  axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+    token: process.env.SLACK_ACCESS_TOKEN,
+    channel: slackSearch.userId,
+    text: '@channel',
+    attachments: JSON.stringify([
+      {
+        title: 'timestamp test',
+        fields: [
+          {
+            title: 'Title',
+            value: slackSearch.arcTitle,
+          },
+          {
+            title: 'Instructor',
+            value: slackSearch.arcInstructor,
+          },
+          {
+            title: 'new link',
+            value: newLink,
+          },
+          {
+            title: 'Tags',
+            value: slackSearch.tags || 'None provided',
+            short: true,
+          }
+        ],
+      },
+    ]),
+  })).then((result) => {
+    debug('sendConfirmation: %o', result.data);
+  }).catch((err) => {
+    debug('sendConfirmation error: %o', err);
+    console.error(err);
+  });
+};
+
 const create = (userId, submission) => {
   const slackSearch = {};
 
@@ -214,11 +252,14 @@ const create = (userId, submission) => {
     slackSearch.arcInstructor = submission.arcInstructor;
     slackSearch.allLabels = submission.allLabels;
     slackSearch.keyword = submission.keyword;
-    if (slackSearch.arcLink) {
+    slackSearch.arcTime = submission.arcTime;
+    if (slackSearch.arcTime) {
+      timestampConfirmation(slackSearch);
+    } else if (slackSearch.arcLink) {
       arcConfirmation2(slackSearch);
-  } else {
+    } else {
       sendConfirmation(slackSearch);
-  }
+    }
     return slackSearch;
   }).catch((err) => { console.error(err); });
 };
