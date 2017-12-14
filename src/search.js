@@ -65,7 +65,7 @@ const arcConfirmation = (slackSearch) => {
             title: 'Link',
             value: slackSearch.arcLink,
           },
-          
+
           {
             title: 'Title',
             value: slackSearch.arcTitle,
@@ -86,6 +86,44 @@ const arcConfirmation = (slackSearch) => {
           },
         ],
       },
+
+      // new below
+
+      {
+        title: `Ticket created for user`,
+        // Get this from the 3rd party helpdesk system
+        title_link: 'http://example.com',
+        text: slackSearch.text,
+        fields: [
+          {
+            title: 'Link',
+            value: slackSearch.arcLink,
+          },
+
+          {
+            title: 'Title',
+            value: slackSearch.arcTitle,
+          },
+          {
+            title: 'Tags',
+            value: slackSearch.tags,
+          },
+          {
+            title: 'Cohort',
+            // value: slackSearch.cohort, `@channel ${slackSearch.cohort}`,
+            value: `${slackSearch.cohort}`,
+            short: true,
+          },
+          {
+            title: 'Brownbag',
+            value: slackSearch.brownbag || 'No',
+          },
+        ],
+      },
+
+      // new above
+
+
     ]),
   })).then((result) => {
     debug('arcConfirmation: %o', result.data);
