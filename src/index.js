@@ -175,63 +175,19 @@ app.post('/arcCommands', (req, res) => {
             ]
           }
         ],
-        elements: [
-          {
-            label: 'Enter video link here',
-            type: 'text',
-            name: 'arcLink',
-            value: text,
-            // value: 'enter link here',
-          },
-          {
-            label: 'Enter video title',
-            type: 'text',
-            name: 'arcTitle',
-            // value: 'enter title here',
-          },
-          {
-            label: 'Tags',
-            type: 'select',
-            name: 'tags',
-            options: [
-              { label: 'JS', value: 'JS' },
-              { label: 'React', value: 'React' },
-              { label: 'Redux', value: 'Redux' },
-              { label: 'Auth', value: 'Auth' },
-              { label: 'C', value: 'C' },
-              { label: 'Testing', value: 'Testing' },
-            ],
-          },
-          {
-            label: 'Cohort',
-            type: 'select',
-            name: 'cohort',
-            options: [
-              { label: 'CS1', value: 'CS1' },
-              { label: 'CS2', value: 'CS2' },
-              { label: 'CS3', value: 'CS3' },
-              { label: 'CS4', value: 'CS4' },
-              { label: 'CS5', value: 'CS5' },
-              { label: 'CS6', value: 'CS6' },
-              { label: 'CS7', value: 'CS7' },
-              { label: 'CS8', value: 'CS8' },
-              { label: 'CS9', value: 'CS9' },
-              { label: 'CS10', value: 'CS10' },
-              { label: 'CS11', value: 'CS11' },
-              { label: 'CS12', value: 'CS12' },
-            ],
-          },
-          {
-            label: 'Brownbag?',
-            optional: true,
-            type: 'select',
-            name: 'brownbag',
-            options: [
-              { label: 'Yes', value: 'true' },
-            ]
-          }
-        ],
-      }),
+
+      }
+      {
+        label: 'Brownbag?',
+        optional: true,
+        type: 'select',
+        name: 'brownbag',
+        options: [
+          { label: 'Yes', value: 'true' },
+        ]
+      }
+
+    ),
     };
 
 
