@@ -176,7 +176,7 @@ app.post('/arcCommands', (req, res) => {
           }
         ],
 
-      }
+      },
       {
         label: 'Brownbag?',
         optional: true,
