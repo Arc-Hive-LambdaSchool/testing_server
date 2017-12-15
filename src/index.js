@@ -133,67 +133,12 @@ app.post('/arcCommands', (req, res) => {
                     "type": "button",
                     "value": "one"
                 },
-                {
-                    "name": "btn",
-                    "text": "2",
-                    "type": "button",
-                    "value": "two"
-                },
-                {
-                    "name": "btn",
-                    "text": "3",
-                    "type": "button",
-                    "value": "three"
-                },
-                {
-                    "name": "btn",
-                    "text": "4",
-                    "type": "button",
-                    "value": "four"
-                },
-                {
-                    "name": "btn",
-                    "text": "5",
-                    "type": "button",
-                    "value": "five"
-                }
+
             ]
         },
-        {
-            "fallback": "More buttons",
-            "callback_id": "button_test_2",
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "actions": [
-                {
-                    "name": "btn",
-                    "text": "6",
-                    "type": "button",
-                    "value": "six"
-                },
-                {
-                    "name": "btn",
-                    "text": "7",
-                    "type": "button",
-                    "value": "seven"
-                },
-                {
-                    "name": "btn",
-                    "text": "8",
-                    "type": "button",
-                    "value": "eight"
-                },
-                {
-                    "name": "btn",
-                    "text": "9",
-                    "type": "button",
-                    "value": "nine"
-                }
-            ]
-        }
-    ]
-  })
-},
+      ]
+    })
+  },
 
     // const dialog = {
     //   token: process.env.SLACK_ACCESS_TOKEN,
