@@ -192,7 +192,7 @@ app.post('/arcCommands', (req, res) => {
             ]
         }
     ]
-  }
+  })
 },
 
     // const dialog = {
