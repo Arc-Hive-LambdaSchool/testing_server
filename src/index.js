@@ -119,76 +119,160 @@ app.post('/arcCommands', (req, res) => {
         title: 'LS Videos',
         callback_id: 'submit-search',
         submit_label: 'Submit',
-        elements: [
-          {
-            label: 'Enter video link here',
-            type: 'text',
-            name: 'arcLink',
-            value: text,
-            // value: 'enter link here',
-          },
-          {
-            label: 'Enter video title',
-            type: 'text',
-            name: 'arcTitle',
-            // value: 'enter title here',
-          },
-          {
-            label: 'Tags',
-            type: 'select',
-            name: 'tags',
-            options: [
-              { label: 'JS', value: 'JS' },
-              { label: 'React', value: 'React' },
-              { label: 'Redux', value: 'Redux' },
-              { label: 'Auth', value: 'Auth' },
-              { label: 'C', value: 'C' },
-              { label: 'Testing', value: 'Testing' },
-            ],
-          },
-          {
-            label: 'Cohort',
-            type: 'select',
-            name: 'cohort',
-            options: [
-              { label: 'CS1', value: 'CS1' },
-              { label: 'CS2', value: 'CS2' },
-              { label: 'CS3', value: 'CS3' },
-              { label: 'CS4', value: 'CS4' },
-              { label: 'CS5', value: 'CS5' },
-              { label: 'CS6', value: 'CS6' },
-              { label: 'CS7', value: 'CS7' },
-              { label: 'CS8', value: 'CS8' },
-              { label: 'CS9', value: 'CS9' },
-              { label: 'CS10', value: 'CS10' },
-              { label: 'CS11', value: 'CS11' },
-              { label: 'CS12', value: 'CS12' },
-            ],
-          },
-          {
-            label: 'Brownbag?',
-            optional: true,
-            type: 'select',
-            name: 'brownbag',
-            options: [
-              { label: 'Yes', value: 'true' },
+    {
+    "attachments": [
+        {
+            "text": "Press a button",
+            "fallback": "Press a button",
+            "callback_id": "button_test",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "btn",
+                    "text": "1",
+                    "type": "button",
+                    "value": "one"
+                },
+                {
+                    "name": "btn",
+                    "text": "2",
+                    "type": "button",
+                    "value": "two"
+                },
+                {
+                    "name": "btn",
+                    "text": "3",
+                    "type": "button",
+                    "value": "three"
+                },
+                {
+                    "name": "btn",
+                    "text": "4",
+                    "type": "button",
+                    "value": "four"
+                },
+                {
+                    "name": "btn",
+                    "text": "5",
+                    "type": "button",
+                    "value": "five"
+                }
             ]
-          }
-        ],
+        },
+        {
+            "fallback": "More buttons",
+            "callback_id": "button_test_2",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "btn",
+                    "text": "6",
+                    "type": "button",
+                    "value": "six"
+                },
+                {
+                    "name": "btn",
+                    "text": "7",
+                    "type": "button",
+                    "value": "seven"
+                },
+                {
+                    "name": "btn",
+                    "text": "8",
+                    "type": "button",
+                    "value": "eight"
+                },
+                {
+                    "name": "btn",
+                    "text": "9",
+                    "type": "button",
+                    "value": "nine"
+                }
+            ]
+        }
+    ]
+  }
+},
 
-      },
-      {
-        label: 'Brownbag?',
-        optional: true,
-        type: 'select',
-        name: 'brownbag',
-        options: [
-          { label: 'Yes', value: 'true' },
-        ]
-      }
-
-    ),
-    };
+    // const dialog = {
+    //   token: process.env.SLACK_ACCESS_TOKEN,
+    //   trigger_id,
+    //   dialog: JSON.stringify({
+    //     title: 'LS Videos',
+    //     callback_id: 'submit-search',
+    //     submit_label: 'Submit',
+    //     elements: [
+    //       {
+    //         label: 'Enter video link here',
+    //         type: 'text',
+    //         name: 'arcLink',
+    //         value: text,
+    //         // value: 'enter link here',
+    //       },
+    //       {
+    //         label: 'Enter video title',
+    //         type: 'text',
+    //         name: 'arcTitle',
+    //         // value: 'enter title here',
+    //       },
+    //       {
+    //         label: 'Tags',
+    //         type: 'select',
+    //         name: 'tags',
+    //         options: [
+    //           { label: 'JS', value: 'JS' },
+    //           { label: 'React', value: 'React' },
+    //           { label: 'Redux', value: 'Redux' },
+    //           { label: 'Auth', value: 'Auth' },
+    //           { label: 'C', value: 'C' },
+    //           { label: 'Testing', value: 'Testing' },
+    //         ],
+    //       },
+    //       {
+    //         label: 'Cohort',
+    //         type: 'select',
+    //         name: 'cohort',
+    //         options: [
+    //           { label: 'CS1', value: 'CS1' },
+    //           { label: 'CS2', value: 'CS2' },
+    //           { label: 'CS3', value: 'CS3' },
+    //           { label: 'CS4', value: 'CS4' },
+    //           { label: 'CS5', value: 'CS5' },
+    //           { label: 'CS6', value: 'CS6' },
+    //           { label: 'CS7', value: 'CS7' },
+    //           { label: 'CS8', value: 'CS8' },
+    //           { label: 'CS9', value: 'CS9' },
+    //           { label: 'CS10', value: 'CS10' },
+    //           { label: 'CS11', value: 'CS11' },
+    //           { label: 'CS12', value: 'CS12' },
+    //         ],
+    //       },
+    //       {
+    //         label: 'Brownbag?',
+    //         optional: true,
+    //         type: 'select',
+    //         name: 'brownbag',
+    //         options: [
+    //           { label: 'Yes', value: 'true' },
+    //         ]
+    //       }
+    //     ],
+    //
+    //   },
+    //   {
+    //     label: 'Brownbag?',
+    //     optional: true,
+    //     type: 'select',
+    //     name: 'brownbag',
+    //     options: [
+    //       { label: 'Yes', value: 'true' },
+    //     ]
+    //   }
+    //
+    // ),
+    // };
 
 
 
