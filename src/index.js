@@ -119,8 +119,7 @@ app.post('/arcCommands', (req, res) => {
         title: 'LS Videos',
         callback_id: 'submit-search',
         submit_label: 'Submit',
-    {
-    "attachments": [
+        "attachments": [
         {
             "text": "Press a button",
             "fallback": "Press a button",
