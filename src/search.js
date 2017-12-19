@@ -231,6 +231,32 @@ const timestampConfirmation = (slackSearch) => {
   });
 };
 
+/*************************ADDED STARTZOOM***********************/
+
+const startZoom = (slackSearch) => {
+  // console.log(slackSearch);
+  axios.post('https://slack.com/api/chat.postMessage', qs.stringify({
+    token: process.env.SLACK_ACCESS_TOKEN,
+    channel: slackSearch.userId,
+    text: `<!channel>`,
+    attachments: JSON.stringify([
+      {
+        fields: [
+          {
+            title: 'zoom link',
+            value: slackSearch.zoomLink,
+          }
+        ],
+      },
+    ]),
+  })).then((result) => {
+    debug('sendConfirmation: %o', result.data);
+  }).catch((err) => {
+    debug('sendConfirmation error: %o', err);
+    console.error(err);
+  });
+};
+
 const create = (userId, submission) => {
   const slackSearch = {};
 
@@ -253,7 +279,12 @@ const create = (userId, submission) => {
     slackSearch.allLabels = submission.allLabels;
     slackSearch.keyword = submission.keyword;
     slackSearch.arcTime = submission.arcTime;
-    if (slackSearch.arcTime) {
+    /*****************ADDED ZOOMEMAIL & IF STATEMENT**********/
+    slackSearch.zoomEmail = submission.zoomEmail;
+    // slackSearch.zoomLink = 'https://zoom.us/j/137711124'
+    if (slackSearch.zoomEmail) {
+      startZoom(slackSearch);
+    } else if (slackSearch.arcTime) {
       timestampConfirmation(slackSearch);
     } else if (slackSearch.arcLink) {
       arcConfirmation2(slackSearch);
