@@ -279,8 +279,9 @@ const create = (userId, submission) => {
     slackSearch.allLabels = submission.allLabels;
     slackSearch.keyword = submission.keyword;
     slackSearch.arcTime = submission.arcTime;
-    /*****************ADDED ZOOMEMAIL & IF STATEMENT**********/
+    /*****************ADDED ZOOMEMAIL, TOPIC & IF STATEMENT**********/
     slackSearch.zoomEmail = submission.zoomEmail;
+    slackSearch.topic = submission.topic;
     // slackSearch.zoomLink = 'https://zoom.us/j/137711124'
     if (slackSearch.zoomEmail) {
       startZoom(slackSearch);
