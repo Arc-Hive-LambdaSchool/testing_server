@@ -8,6 +8,8 @@ const slackSearch = require('./search');
 const debug = require('debug')('slash-command-template:index');
 const users = require('./users');
 const jwt = require('jsonwebtoken');
+const request = require('request');
+
 
 const app = express();
 
