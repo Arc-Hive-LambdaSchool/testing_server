@@ -7,6 +7,7 @@ const qs = require('querystring');
 const slackSearch = require('./search');
 const debug = require('debug')('slash-command-template:index');
 const users = require('./users');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
