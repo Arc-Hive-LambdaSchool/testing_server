@@ -413,7 +413,7 @@ app.post('/zoom', (req, res) => { // Changed get to post
   const token = jwt.sign(payload, process.env.ZOOM_SECRET);
   const z = {
     method: 'POST',
-    uri: 'https://api.zoom.us/v2/users/' + req.body.zoomEmail + '/meetings',
+    uri: 'https://api.zoom.us/v2/users/ta@lambdaschool.com/meetings',
     headers: {
       Authorization: 'Bearer' + token,
       "alg": 'HS256',
