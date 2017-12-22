@@ -159,8 +159,7 @@ app.post('/button', (req, res) => {
 });
 
 
-/*********************ADDED /ZOOM********************/
-app.post('/zoom', (req, res) => {
+app.post('/slackzoom', (req, res) => {
   const { token, text, trigger_id } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
@@ -392,6 +391,263 @@ app.post('/interactive-component', (req, res) => {
     res.sendStatus(500);
   }
 });
+
+/*=======================================================================
+=========================================================================
+* ZOOM ROUTES
+=========================================================================
+========================================================================*/
+
+/*************************************************************************
+* ==============ZOOM CREATE ROUTE==============
+**************************************************************************/
+
+app.post('/zoom', (req, res) => { // Changed get to post
+  const payload = {
+    "iss": process.env.ZOOM_KEY,
+    "exp": Math.floor(Date.now() / 1000) + (60 * 60)
+  };
+  const token = jwt.sign(payload, process.env.ZOOM_SECRET);
+  const z = {
+    method: 'POST',
+    uri: 'https://api.zoom.us/v2/users/' + req.body.zoomEmail + '/meetings',
+    headers: {
+      Authorization: 'Bearer' + token,
+      "alg": 'HS256',
+      "typ": 'JWT',
+    },
+    body: {
+      "topic": req.body.topic,
+      "type": 1,
+      "host_id": "268933",
+      "settings": {
+        "auto_recording": "cloud",
+      },
+    },
+    json: true
+  };
+  request(z, (error, response, body) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    const zoomData = {
+      cohort: req.body.cohort,
+      zoomLink: body.join_url
+    }
+    slackSearch.startZoom(zoomData);
+    res.send(response);
+  });
+  // res.send('ZOOM ZOOM');
+});
+
+/*************************************************************************
+* ==============ZOOM-SLACK ROUTE==============
+**************************************************************************/
+
+app.post('/slackzoom', (req, res) => {
+  const { token, text, trigger_id } = req.body;
+
+  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    const dialog = {
+      token: process.env.SLACK_ACCESS_TOKEN,
+      trigger_id,
+      dialog: JSON.stringify({
+        title: 'Start a zoom meeting',
+        callback_id: 'submit-search',
+        submit_label: 'Submit',
+        elements: [
+          {
+            label: 'Title of lecture',
+            type: 'text',
+            name: 'topic',
+            value: text,
+          },
+          {
+            label: 'Zoom email address',
+            type: 'text',
+            name: 'zoomEmail',
+          },
+          {
+            label: 'Password',
+            type: 'text',
+            name: 'password',
+          },
+          {
+            label: 'Cohort',
+            type: 'text',
+            name: 'cohort',
+          },
+          {
+            label: 'Tags',
+            optional: true,
+            type: 'text',
+            name: 'tags',
+          },
+        ],
+      }),
+    };
+
+    axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
+      .then((result) => {
+        debug('dialog.open: %o', result.data);
+        res.send('');
+      }).catch((err) => {
+        debug('dialog.open call failed: %o', err);
+        res.sendStatus(500);
+      });
+  } else {
+    debug('Verification token mismatch');
+    res.sendStatus(500);
+  }
+});
+
+/*************************************************************************
+* ==============ZOOM-RECORDING ROUTE==============
+**************************************************************************/
+let yt_token;
+
+app.post('/recordings', (req, res) => {
+  // Sample nodejs code for videos.insert
+  const SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.upload'];
+  console.log('586: ' + yt_token);
+
+
+  const videosInsert = (oAuthTravler, requestData) => {
+    console.log('596 RequestData: ' + requestData);
+    const service = google.youtube('v3');
+    const parameters = requestData['params'];
+    parameters['auth'] = oAuthTravler;
+    parameters['media'] = { body: fs.createReadStream(requestData['mediaFilename']) };
+    parameters['notifySubscribers'] = false;
+    parameters['resource'] = requestData['properties'];
+    const req = service.videos.insert(parameters, ((err, data) => {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+      }
+      if (data) {
+        console.log(util.inspect(data, false, null));
+      }
+      process.exit();
+    }));
+  };
+
+  const params = {
+    'params': {
+      'part': 'snippet,status'
+    },
+    'properties': {
+      'snippet.categoryId': '22',
+      // 'snippet.defaultLanguage': '',
+      'snippet.description': 'Lambda School Lecture',
+      // 'snippet.tags[]': '',
+      'snippet.title': 'Mongo III',
+      // 'status.embeddable': '',
+      // 'status.license': '',
+      'status.privacyStatus': 'unlisted',
+      // 'status.publicStatsViewable': ''
+      },
+      'mediaFilename': 's3://zoom-cmr/cmr/replay/2017/12/19/205210934/58B0368B-32C1-4B2C-AC2A-0DD163AB9FC0/GMT20171219-194245_JSON-V_1280x800.mp4',
+    };
+
+  videosInsert(oAuthTravler, params);
+  res.send('It probably worked');
+});
+
+app.get('/recordings', (req, res) => {
+  // console.log('GET');
+  // console.log(req.params);
+  // console.log(req.query.code);
+  // youtube_code = req.query.code;
+  res.send(req.query.code);
+});
+
+/*=======================================================================
+=========================================================================
+* AUTH ROUTES
+=========================================================================
+========================================================================*/
+let oAuthTravler;
+/*************************************************************************
+* ==============INITIAL YOUTUBE AUTH ROUTE==============
+**************************************************************************/
+app.get('/auth', (req, res) => {
+  const SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.upload'];
+  const creds = {
+    client_secret: process.env.YOUTUBE_CLIENT_SECRET,
+    client_id: process.env.YOUTUBE_CLIENT_ID,
+    redirect_uri: 'https://pacific-waters-60975.herokuapp.com/auth-confirmation',
+  };
+
+  const authorize = (credentials) => {
+    const clientSecret = credentials.client_secret;
+    const clientId = credentials.client_id;
+    const redirectUrl = credentials.redirect_uri;
+    const auth = new googleAuth();
+    oAuthTraveler = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+    getNewToken(oAuthTraveler);
+  };
+  const getNewToken = (oAuthTraveler) => {
+    const authUrl = oAuthTraveler.generateAuthUrl({
+      access_type: 'offline',
+      scope: SCOPES
+    });
+    opn(authUrl, {app: 'google chrome'});
+    res.redirect(authUrl);
+  };
+  authorize(creds);
+});
+
+app.get('/auth-confirmation', (req, res) => {
+  const code = req.query.code;
+
+  const receiveToken = (code) => {
+    oAuthTraveler.getToken(code, ((err, token) => {
+      if (err) {
+        console.log('Error while trying to retrieve access token', err);
+        return;
+      }
+      console.log(token);
+      oAuthTraveler.credentials = token;
+      yt_token = token;
+    }));
+  };
+
+  receiveToken(code);
+  res.send(yt_token);
+});
+
+app.get('/success', (req, res) => {
+    res.send('YAAAAAAAAAAAAAAYYYYYYYYYYYYY');
+});
+
+app.get('/fail', (req, res) => {
+  res.send('FAIL FAIL FAIL');
+});
+
+
+/*
+const MONGO_URL = 'mongodb://arc_hive_admin:arc hive 555@ds013475.mlab.com:13475/arc_hive_testdb';
+MongoClient.connect(MONGO_URL, (err, db) => {
+  if (err) {
+    return console.log(err);
+  }
+  // Do something with db here, like inserting a record
+  db.collection('arc_hive_testdb').insertOne(
+    {
+      text: 'Hopefully this works!'
+    },
+    function (err, res) {
+      if (err) {
+        db.close();
+        return console.log(err);
+      }
+      // Success
+      db.close();
+    }
+  )
+});
+*/
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
