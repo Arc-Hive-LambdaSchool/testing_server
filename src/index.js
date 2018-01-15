@@ -7,6 +7,7 @@ const qs = require('querystring');
 const slackSearch = require('./search');
 const debug = require('debug')('slash-command-template:index');
 const users = require('./users');
+const authorizedMembers = require('./members');
 const jwt = require('jsonwebtoken');
 const request = require('request');
 
@@ -216,7 +217,7 @@ app.post('/slackzoom', (req, res) => {
 });
 
 app.post('/arcCommands', (req, res) => {
-  const { token, text, trigger_id, user_id } = req.body;
+  const { token, text, trigger_id, user_id, channel_id } = req.body;
 
   const findUser = (userId) => {
  
@@ -232,6 +233,23 @@ app.post('/arcCommands', (req, res) => {
       return;
     }).catch((err) => { console.error(err); });
   };
+
+  // const verifyUserAccess = (userId) => {
+ 
+  //   const fetchChannelMembers = new Promise((resolve, reject) => {
+  //     users.find(userId).then((result) => {
+  //       debug(`Find user: ${userId}`);
+  //       resolve(result.data);
+  //     }).catch((err) => { reject(err); });
+  //   });
+  
+  //   fetchChannelMembers.then((result) => {
+  //     openDialog(result);
+  //     return;
+  //   }).catch((err) => { console.error(err); });
+  // };
+
+  // verifyUserAccess(user_id);
 
   findUser(user_id);
 
@@ -388,7 +406,22 @@ app.post('/interactive-component', (req, res) => {
 
     res.send('');
 
-    slackSearch.create(body.user.id, body.submission);
+    // console.log(body);
+    const findAuthorizedMembers = (userId, submission) => {
+      const fetchAuthorizedMembers = new Promise((resolve, reject) => {
+        authorizedMembers.memberList(userId).then((result) => {
+          debug(`Get member list`);
+          resolve(result.data.members);
+        }).catch((err) => { reject(err); });
+      });
+
+      fetchAuthorizedMembers.then((result) => {
+        slackSearch.create(userId, submission, result)
+      })
+    }
+    findAuthorizedMembers(body.user.id, body.submission)
+    // slackSearch.create(body.user.id, body.submission);
+
   } else {
     debug('Token mismatch');
     res.sendStatus(500);
@@ -513,11 +546,11 @@ let yt_token;
 app.post('/recordings', (req, res) => {
   // Sample nodejs code for videos.insert
   const SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.upload'];
-  console.log('586: ' + yt_token);
+  // console.log('586: ' + yt_token);
 
 
   const videosInsert = (oAuthTravler, requestData) => {
-    console.log('596 RequestData: ' + requestData);
+    // console.log('596 RequestData: ' + requestData);
     const service = google.youtube('v3');
     const parameters = requestData['params'];
     parameters['auth'] = oAuthTravler;
@@ -610,7 +643,7 @@ app.get('/auth-confirmation', (req, res) => {
         console.log('Error while trying to retrieve access token', err);
         return;
       }
-      console.log(token);
+      // console.log(token);
       oAuthTraveler.credentials = token;
       yt_token = token;
     }));
